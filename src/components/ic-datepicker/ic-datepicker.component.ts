@@ -88,7 +88,7 @@ export class IcDatepickerComponent implements ControlValueAccessor, OnChanges, O
     this.toggleMonthToggles(this.currentPeriod);
 
     this.documentClickEvent = this.renderer.listenGlobal('document', 'click', (event: MouseEvent) => {
-      event.stopPropagation();
+      // event.stopPropagation();
 
       let closeDatepicker = true;
       let isTarget = this.element.nativeElement === event.target;
@@ -98,8 +98,8 @@ export class IcDatepickerComponent implements ControlValueAccessor, OnChanges, O
         closeDatepicker = false;
       }
 
-      if (closeDatepicker) {
-        this.closeDatepicker();
+      if (closeDatepicker && this.datepickerIsOpen) {
+          this.closeDatepicker();
       }
     });
 
