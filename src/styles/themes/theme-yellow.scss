@@ -1,8 +1,0 @@
-$colors: (
-  "primary": #fbca04,
-  "primary-text": #232323
-);
-
-@import "../theme-builder.mixin";
-
-@include theme-builder();
