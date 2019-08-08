@@ -16,6 +16,7 @@ var defaultDayQuickOptions = [
         date: moment().add(1, 'day')
     }
 ];
+var disabled;
 var IcDatepickerOptions = (function () {
     /**
      * @param {?} options
@@ -31,6 +32,7 @@ var IcDatepickerOptions = (function () {
                 readonly: true,
                 tabindex: null
             },
+            disabled: false,
             clearInvalidDates: true,
             closeOnSelect: true,
             customDayClasses: [],
@@ -82,6 +84,7 @@ var IcDatepickerOptions = (function () {
         this.closeOnSelect = (null == options.closeOnSelect) ? this.defaults.closeOnSelect : options.closeOnSelect;
         this.customDayClasses = options.customDayClasses || this.defaults.customDayClasses;
         this.defaultToYearSelect = options.defaultToYearSelect || this.defaults.defaultToYearSelect;
+        disabled = options.disabled || this.defaults.disabled;
         this.disableDayFn = options.disableDayFn || this.defaults.disableDayFn;
         this.disableWeekends = (null == options.disableWeekends) ? this.defaults.disableWeekends : options.disableWeekends;
         this.displayFormat = options.displayFormat || this.defaults.displayFormat;
@@ -460,9 +463,11 @@ var IcDatepickerComponent = (function () {
      * @return {?}
      */
     IcDatepickerComponent.prototype.toggleDatepicker = function () {
-        this.datepickerIsOpen = !this.datepickerIsOpen;
-        var /** @type {?} */ event = this.datepickerIsOpen ? this.opened : this.closed;
-        event.emit();
+        if (!disabled) {
+            this.datepickerIsOpen = !this.datepickerIsOpen;
+            var /** @type {?} */ event = this.datepickerIsOpen ? this.opened : this.closed;
+            event.emit();
+        }
     };
     /**
      * Closes the Datepicker
